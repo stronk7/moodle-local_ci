@@ -1,0 +1,61 @@
+<?php  /// Moodle Configuration File
+
+unset($CFG);
+global $CFG;
+$CFG = new stdClass();
+
+// These are all we need to define from original config.php
+$CFG->wwwroot   = 'http://127.0.0.1';
+$CFG->dataroot='%%DATADIR%%';
+$CFG->admin     = 'admin';
+$CFG->directorypermissions = 00777;
+
+// DB settings
+$CFG->dblibrary='%%DBLIBRARY%%';
+$CFG->dbtype='%%DBTYPE%%';
+$CFG->dbhost='%%DBHOST%%';
+$CFG->dbuser='%%DBUSER%%';
+$CFG->dbpass='%%DBPASS%%';
+$CFG->dbname='%%DBNAME%%';
+$CFG->dboptions=array();
+
+// BEHAT main settings
+$CFG->behat_prefix='q_';
+$CFG->behat_wwwroot='%%WWWROOTBEHAT%%';
+$CFG->behat_dataroot='%%DATADIRBEHAT%%';
+
+// Behat supported profiles
+require_once('behat_profiles.php');
+
+// Behat parallel run information
+$CFG->behat_parallel_run = array (
+%%PARALLELBEHAT%%
+);
+
+// Behat timing information
+define('BEHAT_FEATURE_STEP_FILE', __DIR__. '/behat_parallel_step.json');
+
+// Behat dumperrors
+$CFG->behat_faildump_path = '%%DUMPERRORSBEHAT%%';
+
+// Set correct server timezone
+date_default_timezone_set('Europe/Madrid');
+
+// Debugging and performance footer
+$CFG->debug = E_ALL | E_STRICT;
+$CFG->xmlstrictheaders = false;
+$CFG->debugdisplay = true;
+$CFG->perfdebug = 15;
+define('MDL_PERFDB'  , true);
+$CFG->upgradeshowsql = true;
+$CFG->debugpageinfo  = true;
+
+// STOP any mailout
+$CFG->noemailever = true;
+
+// Extra settings
+%%EXTRACONFIG%%
+
+require_once(dirname(__FILE__) . '/lib/setup.php');
+// MAKE SURE WHEN YOU EDIT THIS FILE THAT THERE ARE NO SPACES, BLANK LINES,
+// RETURNS, OR ANYTHING ELSE AFTER THE TWO CHARACTERS ON THE NEXT LINE.
